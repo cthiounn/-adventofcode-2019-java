@@ -3,6 +3,7 @@ package aoc;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public class Day2 {
@@ -10,29 +11,24 @@ public class Day2 {
 	public static void main(String[] args) throws IOException {
 		long timeStart = System.currentTimeMillis();
 		List<String> input = Files.readAllLines(Paths.get("src/main/resources/day2-input.file"));
-		// part1(input, 12, 2, false);
+		part1(input, 12, 2, false);
 		part2(input);
 		System.out.println("runned time : " + (System.currentTimeMillis() - timeStart) + " ms");
 
 	}
 
 	public static void part1(List<String> lines, int noun, int verb, boolean search) {
-		String myChain = lines.get(0);
-		String[] values = myChain.split(",");
-		values[1] = noun + "";
-		values[2] = verb + "";
+		int[] numbers = Arrays.asList(lines.get(0).split(",")).stream().mapToInt(Integer::parseInt).toArray();
+		numbers[1] = noun;
+		numbers[2] = verb;
 		int i = 0;
-		while (!calculate(i, i + 1, i + 2, i + 3, values)) {
+		while (!calculate(i, numbers)) {
 			i += 4;
 		}
 
 		if (!search) {
-			for (String s : values) {
-				System.out.print(s + ",");
-			}
-			System.out.println("");
-			System.out.println(values[0]);
-		} else if ("19690720".equals(values[0])) {
+			System.out.println(numbers[0]);
+		} else if (19690720 == (numbers[0])) {
 			System.out.println("" + (100 * noun + verb));
 		}
 	}
@@ -45,16 +41,12 @@ public class Day2 {
 		}
 	}
 
-	private static boolean calculate(int n1, int n2, int n3, int n4, String[] values) {
-		if (Integer.parseInt(values[n1]) == 1) {
-			values[Integer.parseInt(values[n4])] = (Integer.parseInt(values[Integer.parseInt(values[n2])])
-					+ Integer.parseInt(values[Integer.parseInt(values[n3])])) + "";
-		} else if (Integer.parseInt(values[n1]) == 2)
-
-		{
-			values[Integer.parseInt(values[n4])] = (Integer.parseInt(values[Integer.parseInt(values[n2])])
-					* Integer.parseInt(values[Integer.parseInt(values[n3])])) + "";
-		} else if (Integer.parseInt(values[n1]) == 99) {
+	private static boolean calculate(int i, int[] values) {
+		if (values[i] == 1) {
+			values[values[i + 3]] = values[values[i + 1]] + values[values[i + 2]];
+		} else if (values[i] == 2) {
+			values[values[i + 3]] = values[values[i + 1]] * values[values[i + 2]];
+		} else if (values[i] == 99) {
 			return true;
 		}
 		return false;
