@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
+import com.sun.xml.internal.ws.util.StringUtils;
 
 public class Day6 {
 
@@ -23,48 +27,27 @@ public class Day6 {
 	}
 
 	public static void part1(Map<String, String> mapOrbit) {
-		int i = 0;
-		for (String s : mapOrbit.keySet()) {
-			String previous = s;
-			while (true) {
-				if ("COM".equals(previous)) {
-					break;
-				}
-				previous = mapOrbit.get(previous);
-				i++;
-			}
 
-		}
-		System.out.println(i);
+		System.out.println(mapOrbit.entrySet().stream().mapToInt(x -> calculate(x.getValue(), mapOrbit)).sum());
+	}
+
+	private static int calculate(String value, Map<String, String> mapOrbit) {
+		return mapOrbit.containsKey(value) ? 1 + calculate(mapOrbit.get(value), mapOrbit) : 1;
+	}
+
+	private static String calculatePrevNodes(String value, Map<String, String> mapOrbit) {
+		return mapOrbit.containsKey(value) ? calculatePrevNodes(mapOrbit.get(value), mapOrbit) + "," + value : "";
 	}
 
 	public static void part2(Map<String, String> mapOrbit) {
-		List<String> previousOrb = new ArrayList<>();
-		String previousY = mapOrbit.get("YOU");
-		String previousS = mapOrbit.get("SAN");
-		List<String> previousOrbY = new ArrayList<>();
-		List<String> previousOrbS = new ArrayList<>();
-		String commonNode = "";
-		while (true) {
-			if (previousOrb.contains(previousS)) {
-				previousOrbS.add(previousS);
-				commonNode = previousS;
-				break;
-			} else {
-				previousOrb.add(previousS);
-				previousOrbS.add(previousS);
-				previousS = mapOrbit.get(previousS);
-			}
-			if (previousOrb.contains(previousY)) {
-				previousOrbY.add(previousY);
-				commonNode = previousY;
-				break;
-			} else {
-				previousOrb.add(previousY);
-				previousOrbY.add(previousY);
-				previousY = mapOrbit.get(previousY);
-			}
-		}
-		System.out.println(previousOrbS.indexOf(commonNode) + previousOrbY.indexOf(commonNode));
+		List<String> you = new ArrayList<>(Arrays.asList(calculatePrevNodes("YOU", mapOrbit).substring(1).split(",")));
+		List<String> san = new ArrayList<>(Arrays.asList(calculatePrevNodes("SAN", mapOrbit).substring(1).split(",")));
+		List<String> diff = new ArrayList<>();
+		diff.addAll(you);
+		diff.addAll(san);
+		you.retainAll(san);
+		diff.removeAll(you);
+		System.out.println(diff.size() - 2);
+
 	}
 }
