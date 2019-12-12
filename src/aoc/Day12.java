@@ -1,16 +1,17 @@
 package aoc;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Day12 {
 
@@ -24,6 +25,15 @@ public class Day12 {
 	}
 
 	public static void part1(List<String> lines) {
+		Set<String> hs = new HashSet<>();
+		Map<Long, Set<String>> registry = new HashMap<>();
+		int twoNumber = 0;
+		Set<String> xString = new HashSet<>();
+		Set<String> yString = new HashSet<>();
+		Set<String> zString = new HashSet<>();
+		List<Integer> xInt = new ArrayList<Integer>();
+		List<Integer> yInt = new ArrayList<Integer>();
+		List<Integer> zInt = new ArrayList<Integer>();
 		int i = 0;
 		for (String s : lines) {
 			Pattern pattern = Pattern.compile("<x=(-?\\d+), y=(-?\\d+), z=(-?\\d+)>");
@@ -40,11 +50,12 @@ public class Day12 {
 			i++;
 		}
 
-		for (int j = 0; j < 1000; j++) {
+		int j = 0;
+		while (true) {
 			// velocity
-			System.out.println("step i=" + j);
+//			System.out.println("step i=" + j);
 			for (Moon m : Moon.allMoon) {
-				System.out.println(m);
+//				System.out.println(m);
 				for (Moon m2 : Moon.allMoon) {
 					if (m.id == m2.id) {
 
@@ -71,8 +82,83 @@ public class Day12 {
 			for (Moon m : Moon.allMoon) {
 				m.move();
 			}
+			if (j == 999) {
+				System.out.println(Moon.total());
+			}
+
+//			long hssHC = Moon.hCode().hashCode();
+//			String hss = Moon.hCode();
+//			if (registry.containsKey(hssHC)) {
+//				if (registry.get(hssHC).contains(hss)) {
+//					break;
+//				} else {
+//					registry.get(hssHC).add(hss);
+//				}
+//			} else {
+//				Set<String> hs2 = new HashSet<>();
+//				hs2.add(hss);
+//				registry.put(hssHC, hs2);
+//			}
+			String xcoord = Moon.allMoon.stream().map(e -> e.x + ";" + e.vx).collect(Collectors.toList()).toString();
+			if (xString.contains(xcoord)) {
+				xInt.add(j);
+				twoNumber++;
+			} else {
+				xString.add(xcoord);
+			}
+			String ycoord = Moon.allMoon.stream().map(e -> e.y + ";" + e.vy).collect(Collectors.toList()).toString();
+			if (yString.contains(ycoord)) {
+				yInt.add(j);
+				twoNumber++;
+			} else {
+				yString.add(ycoord);
+			}
+			String zcoord = Moon.allMoon.stream().map(e -> e.z + ";" + e.vz).collect(Collectors.toList()).toString();
+			if (zString.contains(zcoord)) {
+				zInt.add(j);
+				twoNumber++;
+			} else {
+				zString.add(zcoord);
+			}
+
+			if (!xInt.isEmpty() && !yInt.isEmpty() && !zInt.isEmpty()) {
+				System.out.println(xInt.get(0));
+				System.out.println(yInt.get(0));
+				System.out.println(zInt.get(0));
+				break;
+			}
+
+			j++;
 		}
-		System.out.println(Moon.total());
+//		Long l = new Long(xInt.get(0) * yInt.get(0));
+//		Long ll = l / gcdByEuclidsAlgorithm(xInt.get(0), yInt.get(0));
+//
+//		Long l2 = new Long(ll * zInt.get(0));
+//
+//		Long ll2 = l2 / gcdByEuclidsAlgorithm(zInt.get(0), l2);
+//		System.out.println(ll2);
+
+		System.out.println(lcm(xInt.get(0), lcm(yInt.get(0), zInt.get(0))));
+	}
+
+	static int gcdByEuclidsAlgorithm(int n1, int n2) {
+		if (n2 == 0) {
+			return n1;
+		}
+		return gcdByEuclidsAlgorithm(n2, n1 % n2);
+	}
+
+	private static long gcd(long a, long b) {
+		while (b > 0) {
+			long temp = b;
+			b = a % b; // % is remainder
+			a = temp;
+		}
+		return a;
+	}
+
+	private static long lcm(long a, long b) {
+		return a * (b / gcd(a, b));
 	}
 }
 
@@ -115,6 +201,10 @@ class Moon {
 
 	public static long total() {
 		return allMoon.stream().mapToLong(x -> x.cinetic() * x.pot()).sum();
+	}
+
+	public static String hCode() {
+		return allMoon.toString();
 	}
 
 	@Override
