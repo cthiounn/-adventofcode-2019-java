@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * --- Day 6: Universal Orbit Map ---
+ * ChainedNodes
+ * 358244
+ * 517
+ */
 public class Day6 {
 
 	public static void main(String[] args) throws IOException {

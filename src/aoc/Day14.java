@@ -13,6 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * --- Day 14: Space Stoichiometry ---
+ * chained reaction
+ * 378929
+ * 3445249
+ */
 public class Day14 {
 
 	static Map<SimpleEntry<String, Long>, Map<String, Long>> dict = new HashMap<>();

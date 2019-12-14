@@ -6,6 +6,12 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * --- Day 5: Sunny with a Chance of Asteroids ---
+ * IntCode++
+ * 6069343
+ * 3188550
+ */
 public class Day5 {
 
 	public static void main(String[] args) throws IOException {

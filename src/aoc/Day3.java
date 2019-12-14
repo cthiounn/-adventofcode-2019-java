@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * --- Day 3: Crossed Wires ---
+ * mdist - intersect
+ * 1225
+ * 107036
+ */
 public class Day3 {
 	static int i = 0;
 	static int j = 0;

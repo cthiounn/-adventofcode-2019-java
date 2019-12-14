@@ -11,6 +11,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * --- Day 12: The N-Body Problem ---
+ * coord and velocity / common xyzfreq
+ * 12070
+ * 500903629351944
+ */
 public class Day12 {
 
 	public static void main(String[] args) throws IOException {

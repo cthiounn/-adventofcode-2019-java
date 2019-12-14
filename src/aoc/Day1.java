@@ -5,6 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * --- Day 1: The Tyranny of the Rocket Equation ---
+ * sumFuel
+ * 3512133
+ * 5265294
+ */
 public class Day1 {
 
 	public static void main(String[] args) throws IOException {

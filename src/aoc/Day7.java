@@ -11,6 +11,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * --- Day 7: Amplification Circuit ---
+ * IntCode loop input-output
+ * 117312
+ * 1336480
+ */
 public class Day7 {
 	static LinkedList<Integer> i1 = new LinkedList<>();
 	static LinkedList<Integer> i2 = new LinkedList<>();

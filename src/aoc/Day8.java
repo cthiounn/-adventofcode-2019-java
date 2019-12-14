@@ -7,6 +7,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * --- Day 8: Space Image Format ---
+ * layered pixel
+ * 2080
+ * AURCY
+ */
 public class Day8 {
 
 	public static void main(String[] args) throws IOException {
