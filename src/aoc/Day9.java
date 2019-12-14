@@ -98,7 +98,8 @@ public class Day9 {
 				m.put(p3, p1.multiply(p2));
 				i = i.add(BigInteger.ONE).add(BigInteger.ONE).add(BigInteger.ONE).add(BigInteger.ONE);
 			} else if ("03".equals(c)) {
-				m.put(p3, beginInput);
+				p1 = "2".equals(pp1) ? r2.add(rb) : r2;
+				m.put(p1, beginInput);
 				i = i.add(BigInteger.ONE).add(BigInteger.ONE);
 			} else if ("04".equals(c)) {
 				beginInput = p1;

@@ -73,10 +73,6 @@ public class Day10 {
                     m2.put(atan, a);
                 }
             }
-            // System.out.println(m2);
-            // System.out.println(m2.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(e
-            // -> e.getKey())
-            // .collect(Collectors.toList()));
             for (Asteroid astToRemove : m2.entrySet().stream().sorted(Map.Entry.comparingByKey())
                     .map(Map.Entry::getValue).collect(Collectors.toList())) {
                 Asteroid.listOfAsteroid.remove(astToRemove);
