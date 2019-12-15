@@ -70,9 +70,7 @@ public class Day13 {
 		long pospaddle = 0L;
 		Map<SimpleEntry<Long, Long>, Long> m2 = new HashMap<>();
 		boolean globalStop = false;
-		int step = 0;
-		while (!globalStop) {
-			step++;
+		while (!globalStop) { 
 			stop = false;
 			while (!stop) {
 				s = pad(g(i, m) + "");
