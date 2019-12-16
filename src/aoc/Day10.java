@@ -13,17 +13,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * --- Day 10: Monitoring Station ---
- * Asteroids / rad / atan
- * 288
- * 616
+ * --- Day 10: Monitoring Station --- Asteroids / rad / atan 288 616
  */
 
 public class Day10 {
 
 	public static void main(String[] args) throws IOException {
 		long timeStart = System.currentTimeMillis();
-		List<String> input = Files.readAllLines(Paths.get("src/main/resources/day10-input.file")); 
+		List<String> input = Files.readAllLines(Paths.get("src/main/resources/day10-input.file"));
 		part1(input);
 		System.out.println("runned time : " + (System.currentTimeMillis() - timeStart) + " ms");
 	}
@@ -56,7 +53,7 @@ public class Day10 {
 		}
 		Entry<Integer, Asteroid> maxEntry = numbersAst.entrySet().stream().max(Map.Entry.comparingByKey()).get();
 		Asteroid myStation = maxEntry.getValue();
-		System.out.println(maxEntry.getKey()); 
+		System.out.println(maxEntry.getKey());
 		Asteroid.listOfAsteroid.remove(myStation);
 
 		Map<Double, Asteroid> m2 = new HashMap<>();
@@ -69,14 +66,14 @@ public class Day10 {
 				dist = myStation.mdistance(a);
 
 				atan = myStation.atan(a);
-				if (m2.containsValue(atan) && myStation.mdistance(m2.get(atan)) < dist) {
+				if (m2.containsKey(atan) && myStation.mdistance(m2.get(atan)) < dist) {
 					// nothing, so far so good
 				} else {
 					m2.put(atan, a);
 				}
-			} 
+			}
 			for (Asteroid astToRemove : m2.entrySet().stream().sorted(Map.Entry.comparingByKey())
-					.map(Map.Entry::getValue).collect(Collectors.toList())) { 
+					.map(Map.Entry::getValue).collect(Collectors.toList())) {
 				Asteroid.listOfAsteroid.remove(astToRemove);
 				removedAsteroid++;
 				if (removedAsteroid == 200) {
@@ -206,8 +203,8 @@ class Asteroid {
 	}
 
 	public double atan(Asteroid a) {
-		
-		double angle = 90 + Math.toDegrees(Math.atan2((a.getY() - this.y), (a.getX() - this.x))); 
+
+		double angle = 90 + Math.toDegrees(Math.atan2((a.getY() - this.y), (a.getX() - this.x)));
 		return angle < 0 ? angle + 360 : angle;
 	}
 }
