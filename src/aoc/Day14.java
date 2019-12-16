@@ -14,10 +14,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * --- Day 14: Space Stoichiometry ---
- * chained reaction
- * 378929
- * 3445249
+ * --- Day 14: Space Stoichiometry --- chained reaction 378929 3445249
  */
 public class Day14 {
 
@@ -71,10 +68,11 @@ public class Day14 {
 	}
 
 	private static long searchIn(long l, List<String> lines) {
-		resetStatic(lines);
+
 		long inf = 0L;
 		long sup = l;
 		while (inf < sup) {
+			resetStatic(lines);
 			long middle = (inf + sup + 1) / 2;
 			if (reduce("FUEL", middle) <= l) {
 				inf = middle;
